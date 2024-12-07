@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from database import init_db
-from routes import items, categories, transactions
+from routes import accounts, items, categories, transactions
 
 app = FastAPI(title="Inventory Management API")
 
@@ -11,6 +11,7 @@ init_db()
 app.include_router(items.router, prefix="/items", tags=["Items"])
 app.include_router(categories.router, prefix="/categories", tags=["Categories"])
 app.include_router(transactions.router, prefix="/transactions", tags=["Transactions"])
+app.include_router(accounts.router, prefix="/authentication", tags=["Authentication"])
 
 @app.get("/")
 def read_root():

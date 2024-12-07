@@ -12,7 +12,7 @@ services:
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
-      POSTGRES_DB: kg-procurement
+      POSTGRES_DB: kowan-inventory
     volumes:
       - postgres-local:/var/lib/postgresql/data
 

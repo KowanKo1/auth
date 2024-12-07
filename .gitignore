@@ -9,6 +9,7 @@ venv/
 ENV/
 .venv/
 .Python
+.env
 
 # Dependency files
 *.log

@@ -1,7 +1,11 @@
 from sqlmodel import SQLModel, Session, create_engine
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # SQLite Database
-DATABASE_URL = "postgresql://postgres:postgres@postgres-local:5432/kg-procurement"
+DATABASE_URL = os.environ.get('DB_PATH')
 
 engine = create_engine(DATABASE_URL, echo=True)
 
