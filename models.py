@@ -2,6 +2,10 @@ from typing import Optional
 from sqlmodel import Field, SQLModel, Relationship
 from datetime import datetime
 
+class AuthCredentials:
+    method:str
+    token:str
+
 class MetadataBase(SQLModel):
     createdAt: datetime
     modifiedAt: datetime

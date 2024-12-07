@@ -20,14 +20,6 @@ async def register(account: Account, db: Session = Depends(get_db)):
     account.password = get_hashed_password(account.password)
     account.createdAt = datetime.now()
     account.modifiedAt = datetime.now()
-    print("finalaccount: ",account)
-    # account:Account = {
-    #     'email': account.email,
-    #     'password': get_hashed_password(account.password),
-    #     'firstname': account.firstname,
-    #     'lastname':account.lastname
-    # }
-    print("sampe sini kan")
     create_account(db, account)
 
     return RegisterResponse(message='New account has successfully created')
@@ -35,6 +27,7 @@ async def register(account: Account, db: Session = Depends(get_db)):
 
 @router.post('/login', summary="Create access and refresh tokens for account", response_model=LoginResponse)
 async def login(request:LoginRequest, db:Session = Depends(get_db)):
+    print('masuk kan')
     account = get_account_by_email(db, request.email)
     if account is None:
         raise HTTPException(
@@ -51,7 +44,6 @@ async def login(request:LoginRequest, db:Session = Depends(get_db)):
     
     response: LoginResponse = LoginResponse(
          access_token=create_access_token(account.email),
-         refresh_token=create_refresh_token(account.email),
     )
 
     return response
