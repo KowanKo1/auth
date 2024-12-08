@@ -16,9 +16,11 @@ async def register(account: Account, db: Session = Depends(get_db)):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Account with this email already exist"
         )
+            
     account.password = get_hashed_password(account.password)
     account.createdAt = datetime.now()
     account.modifiedAt = datetime.now()
+    
     create_account(db, account)
 
     return RegisterResponse(message='New account has successfully created')
