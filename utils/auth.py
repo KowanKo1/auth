@@ -31,9 +31,9 @@ def verify_password(password: str, hashed_pass: str) -> bool:
 def decode_access_token(token:str) -> str:
     try:
         payload = jwt.decode(token, JWT_SECRET_KEY, algorithms=[ALGORITHM])
-        print('token payload')
         email: str = payload.get("sub")
         exp:int = payload.get("exp")
+        
         if email is None:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,

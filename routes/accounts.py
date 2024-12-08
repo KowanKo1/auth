@@ -11,7 +11,6 @@ router = APIRouter()
 @router.post('/register', summary="Create new account", response_model=RegisterResponse)
 async def register(account: Account, db: Session = Depends(get_db)):
     exist = get_account_by_email(db, account.email)
-    print("emangnya ada: ", account)
     if exist is not None:
             raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -27,14 +26,14 @@ async def register(account: Account, db: Session = Depends(get_db)):
 
 @router.post('/login', summary="Create access and refresh tokens for account", response_model=LoginResponse)
 async def login(request:LoginRequest, db:Session = Depends(get_db)):
-    print('masuk kan')
     account = get_account_by_email(db, request.email)
+   
     if account is None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Incorrect email or password"
         )
-    print("coba ini aman ga", account)
+
     hashed_pass = account.password
     if not verify_password(request.password, hashed_pass):
         raise HTTPException(

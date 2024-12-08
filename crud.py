@@ -1,6 +1,5 @@
 from sqlmodel import Session, select
-from models import Item, Category, Transaction, Account
-from typing import Optional
+from models import Account
 
 # CRUD for user
 def create_account(db: Session, account: Account) -> Account:
