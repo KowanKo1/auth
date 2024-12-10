@@ -30,7 +30,7 @@ async def read_items(credentials: Annotated[HTTPAuthorizationCredentials, Depend
         raise HTTPException(status_code=400, detail="Account is not recognized")
 
     try:
-        response = requests.get(f"{INVENTORY_SERVICE_URL}/items", params=requestParam, headers={"origin":AUTHENTICATION_SERVICE_URL})
+        response = requests.get(f"{INVENTORY_SERVICE_URL}/items", params=requestParam, headers={"origin":AUTHENTICATION_SERVICE_URL, "email":email})
         response.raise_for_status()
     except requests.exceptions.RequestException as e:
         raise RuntimeError(f"Failed to log transaction: {e}")
@@ -46,7 +46,7 @@ async def read_items(credentials: Annotated[HTTPAuthorizationCredentials, Depend
         raise HTTPException(status_code=400, detail="Account is not recognized")
 
     try:
-        response = requests.post(f"{INVENTORY_SERVICE_URL}/items", json=item.dict(), headers={"origin":AUTHENTICATION_SERVICE_URL})
+        response = requests.post(f"{INVENTORY_SERVICE_URL}/items", json=item.dict(), headers={"origin":AUTHENTICATION_SERVICE_URL, "email":email})
         response.raise_for_status()
     except requests.exceptions.RequestException as e:
         raise RuntimeError(f"Failed to log transaction: {e}")
@@ -66,7 +66,7 @@ async def read_items(credentials: Annotated[HTTPAuthorizationCredentials, Depend
         'transaction_type': transaction_type
     }
     try:
-        response = requests.put(f"{INVENTORY_SERVICE_URL}/items/{item_id}/update_stock", params=requestParams, headers={"origin":AUTHENTICATION_SERVICE_URL})
+        response = requests.put(f"{INVENTORY_SERVICE_URL}/items/{item_id}/update_stock", params=requestParams, headers={"origin":AUTHENTICATION_SERVICE_URL, "email":email})
         response.raise_for_status()
     except requests.exceptions.RequestException as e:
         raise RuntimeError(f"Failed to log transaction: {e}")
